@@ -1,18 +1,29 @@
 <template>
   <h1>Vuex Counter</h1>
   <h1 class="counter">{{ counter }}</h1>
-  <button>-</button>
+  <button @click="subtractFromCounter(parseInt(value))">-</button>
   <input type="number" v-model="value" />
-  <button>+</button>
+  <button @click="addToCounter(parseInt(value))">+</button>
+  <div>
+    <button class="btn" @click="addRandomNumber()">Add by Random Number</button>
+  </div>
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
       value: 1,
-      counter: 0,
     };
+  },
+  computed: {
+    ...mapState(['counter']),
+  },
+  methods: {
+    ...mapMutations(['addToCounter', 'subtractFromCounter']),
+    ...mapActions(['addRandomNumber']),
   },
 };
 </script>
@@ -21,6 +32,14 @@ export default {
 .counter {
   font-size: 5rem;
   margin: 2rem;
+}
+
+.btn {
+  border-radius: 0.5rem;
+  width: auto;
+  background-color: #41b983;
+  margin-top: 1rem;
+  cursor: pointer;
 }
 
 button {
